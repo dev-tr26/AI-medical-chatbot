@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body, html {
+body, html {
             height: 100%;
             margin: 0;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
@@ -50,7 +41,7 @@
         .msg_card_body {
             overflow-y: auto;
             padding: 20px;
-            height: calc(100% - 140px);
+            height: calc(100% - 160px);
             background: rgba(15, 23, 42, 0.5);
         }
 
@@ -70,9 +61,6 @@
 
         .msg_card_body::-webkit-scrollbar-thumb:hover {
             background: rgba(139, 92, 246, 0.8);
-            flex:1;
-            scroll-behavior: smooth;
-            padding: 20px 20px 40px 20px; 
         }
 
         .img_cont {
@@ -153,9 +141,9 @@
         }
 
         .type_msg:focus {
-            box-shadow: 0 0 0 2px rgba(195, 10, 10, 0.3) !important;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3) !important;
             outline: 0px !important;
-            border-color: rgba(205, 7, 7, 0.5) !important;
+            border-color: rgba(139, 92, 246, 0.5) !important;
         }
 
         .type_msg::placeholder {
@@ -217,7 +205,7 @@
             margin-bottom: auto;
             margin-left: 10px;
             border-radius: 20px 20px 20px 5px;
-            background: linear-gradient(135deg, #f20707ff, #e70d14ff);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             padding: 12px 16px;
             position: relative;
             max-width: 70%;
@@ -287,7 +275,7 @@
         .welcome-screen i {
             font-size: 80px;
             background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-            -webkit-background-clip: text;
+            /* -webkit-background-clip: text; */
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
@@ -327,7 +315,7 @@
             display: flex;
             gap: 6px;
             padding: 12px 16px;
-            background: linear-gradient(135deg, #ff0026ff, #da0e0eff);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             border-radius: 20px 20px 20px 5px;
             margin-left: 10px;
         }
@@ -369,191 +357,3 @@
                 max-width: 85%;
             }
         }
-        .disclaimer-box {
-            padding: 15px;
-            background: rgba(30, 41, 59, 0.6); /* keep it subtle */
-            border-radius: 12px;
-        }
-
-        .disclaimer-box h5 {
-            color: #facc15; /* bright yellow for attention */
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .disclaimer-box ul {
-            list-style-type: disc;
-            padding-left: 20px; /* proper indent for bullets */
-            margin: 0; /* remove extra margin */
-        }
-
-        .disclaimer-box ul li {
-            margin-bottom: 6px; /* reduce space between points */
-            color: white; /* text color */
-            font-size: 14px; /* optional: slightly smaller if needed */
-        }
-
-    </style>
-</head>
-<body>
-    <div class="container-fluid h-100">
-        <div class="row justify-content-center h-100">
-            <div class="col-md-8 col-xl-6 chat">
-                <div class="card">
-                    <div class="card-header msg_head">
-                        <div class="d-flex bd-highlight">
-                            <div class="img_cont">
-                                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img">
-                                <span class="online_icon"></span>
-                            </div>
-                            <div class="user_info">
-                                <span>AI Assistant</span>
-                                <p>Online • Always ready to help</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="messageFormeight" class="card-body msg_card_body">
-        <div class="welcome-screen" id="welcomeScreen">
-            <i class="fas fa-robot"></i>
-            <h3>Welcome! 👋</h3>
-            <p>I'm your Medical Information Assistant</p>
-            <div class="disclaimer-box">
-                <i class="fas fa-exclamation-triangle" style="color:#facc15;"></i> <!-- yellow attention icon -->
-                <h5>⚠️ Important Medical Disclaimer</h5>
-                <ul style="color:white; padding-left: 20px; margin: 0;">
-                    <li><strong>This chatbot is for informational purposes only.</strong></li>
-                    <li>Based on THE GALE ENCYCLOPEDIA OF MEDICINE</li>
-                    <li>Provides general symptoms and approximate diagnoses</li>
-                    <li><strong>NOT a substitute for professional medical advice</strong></li>
-                    <li><strong>Always consult a qualified doctor or healthcare provider</strong></li>
-                    <li>Do not rely solely on AI for health decisions</li>
-                    <li>In case of emergency, contact emergency services immediately</li>
-                </ul>
-            </div>
-        </div>
-        </div>
-
-                    <div class="card-footer">
-                        <form id="messageArea" class="input-group">
-                            <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required/>
-                            <button type="submit" id="send" class="send_btn">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function scrollToBottom(force = false) {
-                const chatBody = $("#messageFormeight")[0];
-                const isAtBottom = chatBody.scrollHeight - chatBody.scrollTop <= chatBody.clientHeight + 50; 
-    
-                if (force || isAtBottom) {
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                    }
-                }
-
-            function showTypingIndicator() {
-                const typingHtml = `
-                    <div class="d-flex justify-content-start typing-indicator active">
-                        <div class="img_cont_msg">
-                            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                        </div>
-                        <div class="typing-dots">
-                            <span class="typing-dot"></span>
-                            <span class="typing-dot"></span>
-                            <span class="typing-dot"></span>
-                        </div>
-                    </div>
-                `;
-                $("#messageFormeight").append(typingHtml);
-                scrollToBottom();
-            }
-
-            function hideTypingIndicator() {
-                $(".typing-indicator").remove();
-            }
-
-            $("#messageArea").on("submit", function(event) {
-                event.preventDefault();
-
-                $("#welcomeScreen").fadeOut(300);
-
-                const date = new Date();
-                const hour = date.getHours().toString().padStart(2, '0');
-                const minute = date.getMinutes().toString().padStart(2, '0');
-                const str_time = hour + ":" + minute;
-                
-                var rawText = $("#text").val();
-                
-                var userHtml = `
-                    <div class="d-flex justify-content-end mb-4">
-                        <div class="msg_cotainer_send">
-                            ${rawText}
-                            <span class="msg_time_send">${str_time}</span>
-                        </div>
-                        <div class="img_cont_msg">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle user_img_msg">
-                        </div>
-                    </div>
-                `;
-
-                $("#text").val("");
-                $("#messageFormeight").append(userHtml);
-                scrollToBottom();
-
-                showTypingIndicator();
-
-                $.ajax({
-                    data: {
-                        msg: rawText,
-                    },
-                    type: "POST",
-                    url: "/get",
-                }).done(function(data) {
-                    hideTypingIndicator();
-                    
-                    var botHtml = `
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                ${data}
-                                <span class="msg_time">${str_time}</span>
-                            </div>
-                        </div>
-                    `;
-                    $("#messageFormeight").append($.parseHTML(botHtml));
-                    scrollToBottom();
-                }).fail(function() {
-                    hideTypingIndicator();
-                    
-                    var errorHtml = `
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                Sorry, I'm having trouble connecting. Please try again.
-                                <span class="msg_time">${str_time}</span>
-                            </div>
-                        </div>
-                    `;
-                    $("#messageFormeight").append($.parseHTML(errorHtml));
-                    scrollToBottom();
-                });
-            });
-
-            $("#text").focus();
-        });
-    </script>
-</body>
-</html>
