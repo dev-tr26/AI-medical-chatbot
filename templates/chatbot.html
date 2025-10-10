@@ -410,6 +410,14 @@
                                 <span>AI Assistant</span>
                                 <p>Online • Always ready to help</p>
                             </div>
+                            <div class="ml-auto d-flex align-items-center">
+                                <button id="clearChat" class="btn btn-warning btn-sm mr-2">
+                                        <i class="fas fa-trash-alt"></i> Clear Chat
+                                </button>
+                                <button id="loadHistory" class="btn btn-info btn-sm">
+                                        <i class="fas fa-history"></i> Load History
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -450,110 +458,147 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            function scrollToBottom(force = false) {
-                const chatBody = $("#messageFormeight")[0];
-                const isAtBottom = chatBody.scrollHeight - chatBody.scrollTop <= chatBody.clientHeight + 50; 
-    
-                if (force || isAtBottom) {
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                    }
-                }
+$(document).ready(function() {
+    const sessionId = "{{ session['session_id'] if session['session_id'] else '' }}";
 
-            function showTypingIndicator() {
-                const typingHtml = `
-                    <div class="d-flex justify-content-start typing-indicator active">
-                        <div class="img_cont_msg">
-                            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                        </div>
-                        <div class="typing-dots">
-                            <span class="typing-dot"></span>
-                            <span class="typing-dot"></span>
-                            <span class="typing-dot"></span>
-                        </div>
-                    </div>
-                `;
-                $("#messageFormeight").append(typingHtml);
-                scrollToBottom();
-            }
+    function scrollToBottom(force = false) {
+        const chatBody = $("#messageFormeight")[0];
+        const isAtBottom = chatBody.scrollHeight - chatBody.scrollTop <= chatBody.clientHeight + 50; 
+        if (force || isAtBottom) chatBody.scrollTop = chatBody.scrollHeight;
+    }
 
-            function hideTypingIndicator() {
-                $(".typing-indicator").remove();
-            }
+    function showTypingIndicator() {
+        const typingHtml = `
+            <div class="d-flex justify-content-start typing-indicator active">
+                <div class="img_cont_msg">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
+                </div>
+                <div class="typing-dots">
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            </div>
+        `;
+        $("#messageFormeight").append(typingHtml);
+        scrollToBottom();
+    }
 
-            $("#messageArea").on("submit", function(event) {
-                event.preventDefault();
+    function hideTypingIndicator() {
+        $(".typing-indicator").remove();
+    }
 
-                $("#welcomeScreen").fadeOut(300);
+    // Clear chat messages
+    $("#clearChat").click(function() {
+        $("#messageFormeight").empty();
+        $("#messageFormeight").append(`
+            <div class="welcome-screen" id="welcomeScreen">
+                <i class="fas fa-robot"></i>
+                <h3>Welcome! 👋</h3>
+                <p>I'm your Medical Information Assistant</p>
+                <div class="disclaimer-box">
+                    <i class="fas fa-exclamation-triangle" style="color:#facc15;"></i>
+                    <h5>⚠️ Important Medical Disclaimer</h5>
+                    <ul>
+                        <li><strong>This chatbot is for informational purposes only.</strong></li>
+                        <li>Based on THE GALE ENCYCLOPEDIA OF MEDICINE</li>
+                        <li>Provides general symptoms and approximate diagnoses</li>
+                        <li><strong>NOT a substitute for professional medical advice</strong></li>
+                        <li><strong>Always consult a qualified doctor or healthcare provider</strong></li>
+                        <li>Do not rely solely on AI for health decisions</li>
+                        <li>In case of emergency, contact emergency services immediately</li>
+                    </ul>
+                </div>
+            </div>
+        `);
+    });
 
-                const date = new Date();
-                const hour = date.getHours().toString().padStart(2, '0');
-                const minute = date.getMinutes().toString().padStart(2, '0');
-                const str_time = hour + ":" + minute;
-                
-                var rawText = $("#text").val();
-                
-                var userHtml = `
-                    <div class="d-flex justify-content-end mb-4">
-                        <div class="msg_cotainer_send">
-                            ${rawText}
-                            <span class="msg_time_send">${str_time}</span>
-                        </div>
-                        <div class="img_cont_msg">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle user_img_msg">
-                        </div>
-                    </div>
-                `;
-
-                $("#text").val("");
-                $("#messageFormeight").append(userHtml);
-                scrollToBottom();
-
-                showTypingIndicator();
-
-                $.ajax({
-                    data: {
-                        msg: rawText,
-                    },
-                    type: "POST",
-                    url: "/get",
-                }).done(function(data) {
-                    hideTypingIndicator();
-                    
-                    var botHtml = `
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                ${data}
-                                <span class="msg_time">${str_time}</span>
-                            </div>
-                        </div>
-                    `;
-                    $("#messageFormeight").append($.parseHTML(botHtml));
-                    scrollToBottom();
-                }).fail(function() {
-                    hideTypingIndicator();
-                    
-                    var errorHtml = `
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                Sorry, I'm having trouble connecting. Please try again.
-                                <span class="msg_time">${str_time}</span>
-                            </div>
-                        </div>
-                    `;
-                    $("#messageFormeight").append($.parseHTML(errorHtml));
-                    scrollToBottom();
+    // Load chat history
+    $("#loadHistory").click(function() {
+        $.ajax({
+            type: "GET",
+            url: `/history/${sessionId}`,
+            success: function(data) {
+                $("#messageFormeight").empty();
+                data.forEach(msg => {
+                    const html = msg.role === "user"
+                        ? `<div class="d-flex justify-content-end mb-4">
+                               <div class="msg_cotainer_send">${msg.message}<span class="msg_time_send">${msg.time}</span></div>
+                               <div class="img_cont_msg"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle user_img_msg"></div>
+                           </div>`
+                        : `<div class="d-flex justify-content-start mb-4">
+                               <div class="img_cont_msg"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg"></div>
+                               <div class="msg_cotainer">${msg.message}<span class="msg_time">${msg.time}</span></div>
+                           </div>`;
+                    $("#messageFormeight").append(html);
                 });
-            });
-
-            $("#text").focus();
+                scrollToBottom(true);
+            }
         });
-    </script>
+    });
+
+    // Handle message submission
+    $("#messageArea").on("submit", function(event) {
+        event.preventDefault();
+        $("#welcomeScreen").fadeOut(300);
+
+        const date = new Date();
+        const str_time = date.getHours().toString().padStart(2, '0') + ":" +
+                         date.getMinutes().toString().padStart(2, '0');
+
+        const userInput = $("#text").val();
+        if (!userInput.trim()) return;
+
+        // Append user message
+        const userHtml = `
+            <div class="d-flex justify-content-end mb-4">
+                <div class="msg_cotainer_send">${userInput}<span class="msg_time_send">${str_time}</span></div>
+                <div class="img_cont_msg"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle user_img_msg"></div>
+            </div>
+        `;
+        $("#text").val("");
+        $("#messageFormeight").append(userHtml);
+        scrollToBottom();
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        $.ajax({
+            url: "/llm_chat",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                session_id: sessionId,
+                message: userInput
+            }),
+            success: function(data) {
+                hideTypingIndicator();
+                const botHtml = `
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg"></div>
+                        <div class="msg_cotainer">${data.response}<span class="msg_time">${str_time}</span></div>
+                    </div>
+                `;
+                $("#messageFormeight").append(botHtml);
+                scrollToBottom();
+            },
+            error: function() {
+                hideTypingIndicator();
+                const errorHtml = `
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="rounded-circle user_img_msg"></div>
+                        <div class="msg_cotainer">Sorry, I'm having trouble connecting. Please try again.<span class="msg_time">${str_time}</span></div>
+                    </div>
+                `;
+                $("#messageFormeight").append(errorHtml);
+                scrollToBottom();
+            }
+        });
+    });
+
+    $("#text").focus();
+});
+</script>
+
 </body>
 </html>

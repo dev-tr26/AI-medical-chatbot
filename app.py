@@ -1,81 +1,48 @@
 from flask import Flask, request, redirect,render_template
-from src.helper import download_hf_embeddings 
-from langchain_groq import ChatGroq
-from langchain.chains import create_retrieval_chain 
-from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains.combine_documents import create_stuff_documents_chain 
-from langchain_pinecone import PineconeVectorStore
-from flask import jsonify 
+from flask import jsonify , session
 from src.prompt import *
-from dotenv import load_dotenv
-import os
+from chat_feature.chat_service import get_response, clear_session_cache, get_recent_history
+import uuid
+
 
 app =Flask(__name__)
-
-load_dotenv()
-
-
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-GROK_API_KEY = os.getenv("GROK_API_KEY")
-
-os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY 
-os.environ['GROK_API_KEY'] = GROK_API_KEY
-
-embeddings = download_hf_embeddings()
+app.secret_key = "some_secret_key"
 
 
-
-index_name = "medical-chatbot"
-
-docsearch = PineconeVectorStore.from_existing_index(
-    index_name = index_name,
-    embedding=embeddings
-)
-
-retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 4})
-
-chat_model = ChatGroq(
-    grok_api_key = GROK_API_KEY,
-    model="qwen/qwen3-32b",
-    max_tokens= 512,
-    reasoning_format="parsed",
-    max_retries=3,
-)
-
-
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", system_prompt),
-        ("human","""
-Previous conversation context:
-{chat_history}
-
-Current question: {input}
-
-Please provide a response considering the conversation history above.       
-
-""")    
-])
-
-que_ans_chain = create_stuff_documents_chain(chat_model, prompt)
-rag_chain = create_retrieval_chain(retriever, que_ans_chain)
-
-@app.rote("/")
+@app.route("/")
 def index():
+    if "session_id" not in session:
+        session["session_id"] = str(uuid.uuid4)
     return render_template("chatbot.html")
 
 
-@app.route("/get", methods=["GET", "POST"])
+@app.route("/llm_chat", methods=["POST"])
 def chat():
-    msg = request.form["msg"]
-    input = msg
-    print(input)
-    response = rag_chain.invoke({"input": msg})
-    print("Response : ", response["answer"])
-    return str(response["answer"])
+    data = request.get_json()
+    session_id = data.get("session_id")
+    user_message = data.get("message")
+
+    if not session_id or not user_message:
+        return jsonify({"error": "Missing session_id or message"}), 400
+
+    bot_response = get_response(session_id, user_message)
+    return jsonify({"response": bot_response})
+
+    
+@app.route('/clear_chat/<session_id>', methods=['POST'])
+def clear_session(session_id):
+    clear_session_cache(session_id)
+    return jsonify({"message": f"Session {session_id} cleared."})
 
 
+@app.route('/history/<session_id>', methods=['GET'])
+def history(session_id):
+    history = get_recent_history(session_id)
+    return jsonify(history)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port= 8080, debug= True)
-    
+    app.run(debug=True)
+
+
+# if __name__ == '__main__':
+    # app.run(host="0.0.0.0", port= 8080, debug= True)

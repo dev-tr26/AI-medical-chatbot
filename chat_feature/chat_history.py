@@ -1,5 +1,5 @@
 # chat_history.py
-from ..db_config import get_connection
+from db_config import get_connection
 
 def save_message(session_id, role, message):
     """

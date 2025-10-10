@@ -1,16 +1,15 @@
 from langchain_community.document_loaders import TextLoader
-from langchain.embeddings import HuggingFaceBgeEmbeddings
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from typing import List
 from langchain.schema import Document
-from langchain.embeddings import HuggingFaceBgeEmbeddings, HuggingFaceBgeEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 import torch
 
 
 def download_embeddings():
     model_name = "BAAI/bge-small-en-v1.5"
-    embedding_vectors = HuggingFaceBgeEmbeddings(
+    embedding_vectors = HuggingFaceEmbeddings(
         model_name = model_name,
         model_kwargs={
             "device":"cuda" if torch.cuda.is_available() else "cpu"
