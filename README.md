@@ -1,4 +1,4 @@
-# 🧠 Medical RAG Chatbot (Flask + LangChain + Pinecone + Groq)
+# 🧠 Medical RAG in-memory Chatbot
 
 A **Retrieval-Augmented Generation (RAG)**-based **medical chatbot** that retrieves context-aware answers from uploaded medical PDFs using **LangChain**, **Pinecone**, and **Groq’s Qwen3-32B model**.
 It integrates **Flask** for the backend, applies a **safety protocol** to minimize hallucinations, and maintains **session-based chat histories** in **MySQL** for analytics and future training.
