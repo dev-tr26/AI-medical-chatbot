@@ -1,13 +1,18 @@
+<<<<<<< HEAD
 
 ---
 
 #  Medical RAG Chatbot (Flask + LangChain + Pinecone + Groq)
+=======
+# 🧠 Medical RAG in-memory Chatbot
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 A **Retrieval-Augmented Generation (RAG)**-based **medical chatbot** that retrieves context-aware answers from uploaded medical PDFs using **LangChain**, **Pinecone**, and **Groq’s Qwen3-32B model**.
 It integrates **Flask** for the backend, applies a **safety protocol** to minimize hallucinations, and maintains **session-based chat histories** in **MySQL** for analytics and future training.
 
 ---
 
+<<<<<<< HEAD
 ##  Features
 
 ✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
@@ -22,6 +27,22 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 ---
 
 ##  System Architecture
+=======
+## 🚀 Features
+
+✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.  
+✅ **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.  
+✅ **Flask Backend** – Simple and extensible REST API backend for chatbot interaction.  
+✅ **Safety Protocols** – Filters unreliable or hallucinated responses.  
+✅ **Pinecone Vector DB** – High-speed document similarity search.  
+✅ **Groq LLM Orchestration** – Uses **Qwen/Qwen3-32B** through Groq API for efficient inference.  
+✅ **Embedding Model** – Uses `BAAI/bge-small-en-v1.5` for creating dense vector embeddings.  
+✅ **Modular Architecture** – Easy to extend for new data sources or frontends.  
+
+---
+
+## 🧩 System Architecture
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 ```
                 ┌────────────────────────┐
@@ -55,7 +76,11 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
+<<<<<<< HEAD
 ##  Tech Stack
+=======
+## 🛠️ Tech Stack
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 | Component           | Technology                                |
 | ------------------- | ----------------------------------------- |
@@ -140,6 +165,7 @@ Access the chatbot at:
 | `/clear_chat/<session_id>` | `POST` | Clear session cache       |
 | `/history/<session_id>`    | `GET`  | Retrieve session history  |
 
+<<<<<<< HEAD
 ### Example Request
 
 ```json
@@ -163,6 +189,14 @@ POST /llm_chat
 ##  Core Modules
 
 ###  `chat_feature/chat_service.py`
+=======
+
+---
+
+## 🧱 Core Modules
+
+### 🧩 `chat_feature/chat_service.py`
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 Implements the RAG logic:
 
@@ -172,7 +206,11 @@ Implements the RAG logic:
 * Generates safe responses
 * Saves all messages to MySQL and in-memory session
 
+<<<<<<< HEAD
 ###  `src/helper.py`
+=======
+### 🧠 `src/helper.py`
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 Handles:
 
@@ -180,7 +218,11 @@ Handles:
 * Vector index management
 * PDF preprocessing
 
+<<<<<<< HEAD
 ###  `chat_feature/chat_history.py`
+=======
+### 💾 `chat_feature/chat_history.py`
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 Handles:
 
@@ -190,7 +232,11 @@ Handles:
 
 ---
 
+<<<<<<< HEAD
 ##  Safety Protocol
+=======
+## 🛡️ Safety Protocol
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 To avoid **hallucinations** or unsafe outputs:
 
@@ -202,7 +248,11 @@ To avoid **hallucinations** or unsafe outputs:
 
 ---
 
+<<<<<<< HEAD
 ##  Chat History and Analytics
+=======
+## 📊 Chat History and Analytics
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
 
 * Chat logs are stored in **MySQL** with timestamps.
 * Each conversation is tracked using a **unique session_id**.
@@ -212,5 +262,17 @@ To avoid **hallucinations** or unsafe outputs:
   * Fine-tuning LLMs
   * Auditing and compliance
 
+<<<<<<< HEAD
 ---
 
+=======
+
+---
+
+## 🩺 Disclaimer
+
+> ⚠️ **This chatbot is intended for educational and informational purposes only.**
+> It does **not** replace professional medical advice. Always consult a qualified healthcare provider for medical concerns.
+
+
+>>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
