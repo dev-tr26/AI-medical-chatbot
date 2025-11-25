@@ -1,24 +1,27 @@
-# 🧠 Medical RAG in-memory Chatbot
+
+---
+
+#  Medical RAG Chatbot (Flask + LangChain + Pinecone + Groq)
 
 A **Retrieval-Augmented Generation (RAG)**-based **medical chatbot** that retrieves context-aware answers from uploaded medical PDFs using **LangChain**, **Pinecone**, and **Groq’s Qwen3-32B model**.
 It integrates **Flask** for the backend, applies a **safety protocol** to minimize hallucinations, and maintains **session-based chat histories** in **MySQL** for analytics and future training.
 
 ---
 
-## 🚀 Features
+##  Features
 
-✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.  
-✅ **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.  
-✅ **Flask Backend** – Simple and extensible REST API backend for chatbot interaction.  
-✅ **Safety Protocols** – Filters unreliable or hallucinated responses.  
-✅ **Pinecone Vector DB** – High-speed document similarity search.  
-✅ **Groq LLM Orchestration** – Uses **Qwen/Qwen3-32B** through Groq API for efficient inference.  
-✅ **Embedding Model** – Uses `BAAI/bge-small-en-v1.5` for creating dense vector embeddings.  
-✅ **Modular Architecture** – Easy to extend for new data sources or frontends.  
+✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
+✅ **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.
+✅ **Flask Backend** – Simple and extensible REST API backend for chatbot interaction.
+✅ **Safety Protocols** – Filters unreliable or hallucinated responses.
+✅ **Pinecone Vector DB** – High-speed document similarity search.
+✅ **Groq LLM Orchestration** – Uses **Qwen/Qwen3-32B** through Groq API for efficient inference.
+✅ **Embedding Model** – Uses `BAAI/bge-small-en-v1.5` for creating dense vector embeddings.
+✅ **Modular Architecture** – Easy to extend for new data sources or frontends.
 
 ---
 
-## 🧩 System Architecture
+##  System Architecture
 
 ```
                 ┌────────────────────────┐
@@ -52,7 +55,7 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Component           | Technology                                |
 | ------------------- | ----------------------------------------- |
@@ -137,12 +140,29 @@ Access the chatbot at:
 | `/clear_chat/<session_id>` | `POST` | Clear session cache       |
 | `/history/<session_id>`    | `GET`  | Retrieve session history  |
 
+### Example Request
+
+```json
+POST /llm_chat
+{
+  "session_id": "1234-5678",
+  "message": "What is the recommended dosage of amoxicillin for adults?"
+}
+```
+
+### Example Response
+
+```json
+{
+  "response": "For most adult infections, the usual dosage of amoxicillin is 500 mg every 8 hours."
+}
+```
 
 ---
 
-## 🧱 Core Modules
+##  Core Modules
 
-### 🧩 `chat_feature/chat_service.py`
+###  `chat_feature/chat_service.py`
 
 Implements the RAG logic:
 
@@ -152,7 +172,7 @@ Implements the RAG logic:
 * Generates safe responses
 * Saves all messages to MySQL and in-memory session
 
-### 🧠 `src/helper.py`
+###  `src/helper.py`
 
 Handles:
 
@@ -160,7 +180,7 @@ Handles:
 * Vector index management
 * PDF preprocessing
 
-### 💾 `chat_feature/chat_history.py`
+###  `chat_feature/chat_history.py`
 
 Handles:
 
@@ -170,7 +190,7 @@ Handles:
 
 ---
 
-## 🛡️ Safety Protocol
+##  Safety Protocol
 
 To avoid **hallucinations** or unsafe outputs:
 
@@ -182,7 +202,7 @@ To avoid **hallucinations** or unsafe outputs:
 
 ---
 
-## 📊 Chat History and Analytics
+##  Chat History and Analytics
 
 * Chat logs are stored in **MySQL** with timestamps.
 * Each conversation is tracked using a **unique session_id**.
@@ -192,12 +212,5 @@ To avoid **hallucinations** or unsafe outputs:
   * Fine-tuning LLMs
   * Auditing and compliance
 
-
 ---
-
-## 🩺 Disclaimer
-
-> ⚠️ **This chatbot is intended for educational and informational purposes only.**
-> It does **not** replace professional medical advice. Always consult a qualified healthcare provider for medical concerns.
-
 

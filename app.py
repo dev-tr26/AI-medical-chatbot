@@ -2,7 +2,7 @@ from flask import Flask, request, redirect,render_template
 from flask import jsonify , session
 from src.prompt import *
 from chat_feature.chat_service import get_response, clear_session_cache, get_recent_history
-import uuid
+import uuid, os
 
 
 app =Flask(__name__)
@@ -40,9 +40,10 @@ def history(session_id):
     history = get_recent_history(session_id)
     return jsonify(history)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
 # if __name__ == '__main__':
-    # app.run(host="0.0.0.0", port= 8080, debug= True)
+    # app.run(debug=True)
+
+
+if __name__ == '__main__':
+    port  = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port = port, debug= True)
