@@ -8,7 +8,7 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-## 🚀 Features
+##  Features
 
 ✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
 ✅ **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.
@@ -21,7 +21,7 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-## 🧩 System Architecture
+##  System Architecture
 
 ```
                 ┌────────────────────────┐
@@ -55,7 +55,7 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Component           | Technology                                |
 | ------------------- | ----------------------------------------- |
@@ -70,16 +70,16 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
-### 1️⃣ Clone Repository
+### 1️. Clone Repository
 
 ```bash
 git clone https://github.com/yourusername/medical-rag-chatbot.git
 cd medical-rag-chatbot
 ```
 
-### 2️⃣ Create Virtual Environment
+### 2️. Create Virtual Environment
 
 ```bash
 python3 -m venv venv
@@ -87,13 +87,13 @@ source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
 ```
 
-### 3️⃣ Install Dependencies
+### 3️. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Configure Environment
+### 4️. Configure Environment
 
 Create a `.env` file in the root directory:
 
@@ -106,7 +106,7 @@ MYSQL_PASSWORD=your_password
 MYSQL_DB=chatbot_db
 ```
 
-### 5️⃣ Database Setup (MySQL)
+### 5️. Database Setup (MySQL)
 
 Create a table for chat history:
 
@@ -120,18 +120,18 @@ CREATE TABLE chat_history (
 );
 ```
 
-### 6️⃣ Run Flask App
+### 6️. Run Flask App
 
 ```bash
 python app.py
 ```
 
 Access the chatbot at:
-👉 **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
+ **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
 
 ---
 
-## 💬 API Endpoints
+##  API Endpoints
 
 | Endpoint                   | Method | Description               |
 | -------------------------- | ------ | ------------------------- |
@@ -145,7 +145,7 @@ Access the chatbot at:
 
 ##  Core Modules
 
-### 🧩 `chat_feature/chat_service.py`
+###  `chat_feature/chat_service.py`
 
 Implements the RAG logic:
 
@@ -155,7 +155,7 @@ Implements the RAG logic:
 * Generates safe responses
 * Saves all messages to MySQL and in-memory session
 
-### 🧠 `src/helper.py`
+###  `src/helper.py`
 
 Handles:
 
@@ -163,7 +163,7 @@ Handles:
 * Vector index management
 * PDF preprocessing
 
-### 💾 `chat_feature/chat_history.py`
+###  `chat_feature/chat_history.py`
 
 Handles:
 
@@ -173,7 +173,7 @@ Handles:
 
 ---
 
-## 🛡️ Safety Protocol
+##  Safety Protocol
 
 To avoid **hallucinations** or unsafe outputs:
 
@@ -185,7 +185,7 @@ To avoid **hallucinations** or unsafe outputs:
 
 ---
 
-## 📊 Chat History and Analytics
+##  Chat History and Analytics
 
 * Chat logs are stored in **MySQL** with timestamps.
 * Each conversation is tracked using a **unique session_id**.
