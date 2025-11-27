@@ -8,16 +8,17 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
+
 ##  Features
 
-✅ **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
-✅ **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.
-✅ **Flask Backend** – Simple and extensible REST API backend for chatbot interaction.
-✅ **Safety Protocols** – Filters unreliable or hallucinated responses.
-✅ **Pinecone Vector DB** – High-speed document similarity search.
-✅ **Groq LLM Orchestration** – Uses **Qwen/Qwen3-32B** through Groq API for efficient inference.
-✅ **Embedding Model** – Uses `BAAI/bge-small-en-v1.5` for creating dense vector embeddings.
-✅ **Modular Architecture** – Easy to extend for new data sources or frontends.
+-  **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
+-  **In-Memory + Database Chat History** – Session-level caching with persistent storage in MySQL.
+-  **Flask Backend** – Simple and extensible REST API backend for chatbot interaction.
+-  **Safety Protocols** – Filters unreliable or hallucinated responses.
+-  **Pinecone Vector DB** – High-speed document similarity search.
+-  **Groq LLM Orchestration** – Uses **Qwen/Qwen3-32B** through Groq API for efficient inference.
+-  **Embedding Model** – Uses `BAAI/bge-small-en-v1.5` for creating dense vector embeddings.
+-  **Modular Architecture** – Easy to extend for new data sources or frontends.
 
 ---
 
@@ -195,7 +196,3 @@ To avoid **hallucinations** or unsafe outputs:
   * Fine-tuning LLMs
   * Auditing and compliance
 
-
----
-
->>>>>>> a2da134293951809296b3073e57e2486bf20cfa2
