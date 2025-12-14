@@ -6,6 +6,8 @@ setup(
     author="Turingetic_guy",
     author_email="turing2604@gmail.com",
     packages=find_packages(),
+    install_requires = [
+        "pytest",
+    ],
+    python_requires=">=3.10",
 )
-
-install_requires = []
