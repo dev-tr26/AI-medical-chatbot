@@ -4,7 +4,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PORT=8080
+    PORT=8080\
+    TRANSFORMERS_CACHE=/tmp/huggingface
 
 WORKDIR /app
 
@@ -29,6 +30,8 @@ RUN pip install --no-cache-dir --default-timeout=200 \
 # Create non-root user AFTER install
 RUN useradd --system --uid 1000 appuser \
  && chown -R appuser:appuser /app
+
+RUN mkdir -p /tmp/huggingface && chown -R appuser:appuser /tmp/huggingface
 
 USER appuser
 
