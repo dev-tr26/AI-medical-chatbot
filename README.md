@@ -128,9 +128,6 @@ CREATE TABLE chat_history (
 python app.py
 ```
 
-Access the chatbot at:
- **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
-
 ---
 
 ##  API Endpoints
