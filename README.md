@@ -8,7 +8,6 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
-Live Link - https://ai-medical-chatbot-1u4d.onrender.com/
 
 ---
 ##  Features
