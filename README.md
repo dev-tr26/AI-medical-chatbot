@@ -1,4 +1,4 @@
-
+<img width="1916" height="988" alt="image" src="https://github.com/user-attachments/assets/6811196e-6c00-4c8d-9534-a055fcf1379c" />
 ---
 
 #  Medical RAG Chatbot (Flask + LangChain + Pinecone + Groq)
@@ -8,7 +8,9 @@ It integrates **Flask** for the backend, applies a **safety protocol** to minimi
 
 ---
 
+Live Link - https://ai-medical-chatbot-1u4d.onrender.com/
 
+---
 ##  Features
 
 -  **Retrieval-Augmented Generation (RAG)** – Combines vector-based retrieval from PDFs with LLM-based reasoning.
