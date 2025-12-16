@@ -11,7 +11,8 @@ jobs:
     name: Run Unit Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,12 +27,13 @@ jobs:
 
       - name: Run Unit Tests
         run: |
-          PYTHONPATH=$(pwd)
+          export PYTHONPATH=$(pwd)
           mkdir -p tests/logs/unit
-          pytest tests/unit --log-cli-level=INFO --disable-warnings | tee tests/logs/unit/unit_tests.log
+          pytest tests/unit --log-cli-level=INFO --disable-warnings \
+            | tee tests/logs/unit/unit_tests.log
 
       - name: Upload Unit Test Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: unit-test-logs
           path: tests/logs/unit/
@@ -41,7 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-tests
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -56,12 +59,13 @@ jobs:
 
       - name: Run Integration Tests
         run: |
-          PYTHONPATH=$(pwd)
+          export PYTHONPATH=$(pwd)
           mkdir -p tests/logs/integration
-          pytest tests/integration --log-cli-level=INFO --disable-warnings | tee tests/logs/integration/integration_tests.log
+          pytest tests/integration --log-cli-level=INFO --disable-warnings \
+            | tee tests/logs/integration/integration_tests.log
 
       - name: Upload Integration Test Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: integration-test-logs
           path: tests/logs/integration/
@@ -71,7 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: integration-tests
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -86,12 +91,13 @@ jobs:
 
       - name: Run Performance Tests
         run: |
-          PYTHONPATH=$(pwd)
+          export PYTHONPATH=$(pwd)
           mkdir -p tests/logs/performance
-          pytest tests/performance --log-cli-level=INFO --disable-warnings | tee tests/logs/performance/performance_tests.log
+          pytest tests/performance --log-cli-level=INFO --disable-warnings \
+            | tee tests/logs/performance/performance_tests.log
 
       - name: Upload Performance Test Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: performance-test-logs
           path: tests/logs/performance/
