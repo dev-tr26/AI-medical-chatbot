@@ -22,7 +22,6 @@ pydantic==2.11.10
 pydantic-settings==2.11.0
 
 # ================= ML / HuggingFace =================
-torch==2.2.0
 transformers>=4.41,<4.45
 huggingface-hub>=0.23.0,<1.0.0
 sentence-transformers>=2.7.0,<3.0
