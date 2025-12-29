@@ -1,4 +1,3 @@
-<img width="1916" height="988" alt="image" src="https://github.com/user-attachments/assets/6811196e-6c00-4c8d-9534-a055fcf1379c" />
 ---
 
 #  Medical RAG Chatbot (Flask + LangChain + Pinecone + Groq)
@@ -7,7 +6,11 @@ A **Retrieval-Augmented Generation (RAG)**-based **medical chatbot** that retrie
 It integrates **Flask** for the backend, applies a **safety protocol** to minimize hallucinations, and maintains **session-based chat histories** in **MySQL** for analytics and future training.
 
 ---
+# SAFE RESPONSE SCREENSHOTS 
 
+<img width="1914" height="902" alt="image" src="https://github.com/user-attachments/assets/d882dd7c-e8fe-4f69-ae6f-dcc622401e7a" />
+
+<img width="1916" height="988" alt="image" src="https://github.com/user-attachments/assets/6811196e-6c00-4c8d-9534-a055fcf1379c" />
 
 ---
 ##  Features
